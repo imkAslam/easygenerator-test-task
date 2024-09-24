@@ -1,5 +1,6 @@
 import { INestApplication, Logger } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { API_SECURITY_AUTH } from 'src/common/decorators/swagger.decorator';
 
 export function setupSwagger(app: INestApplication): void {
   const documentBuilder = new DocumentBuilder()
@@ -8,12 +9,13 @@ export function setupSwagger(app: INestApplication): void {
     .setVersion('1.0.0');
 
   // auth security
-  //   documentBuilder.addSecurity(API_SECURITY_AUTH, {
-  //     description: 'Auth',
-  //     type: 'apiKey',
-  //     in: 'header',
-  //     name: 'Authorization',
-  //   });
+  documentBuilder.addSecurity(API_SECURITY_AUTH, {
+    name: 'Authorization',
+    description:
+      'JWT Authorization header using the Bearer scheme. Example: Bearer <token>',
+    type: 'apiKey',
+    in: 'header',
+  });
 
   const document = SwaggerModule.createDocument(app, documentBuilder.build(), {
     ignoreGlobalPrefix: false,

@@ -11,8 +11,11 @@ async function bootstrap() {
 
   app.setGlobalPrefix(process.env.GLOBAL_PREFIX);
   setupSwagger(app);
-  app.enableCors();
-  // app.use(csurf());
+  app.enableCors({
+    origin: '*',
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  });
   await app.listen(process.env.PORT);
 }
 bootstrap();
