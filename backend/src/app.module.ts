@@ -5,7 +5,7 @@ import { AppService } from './app.service';
 // import { UsersModule } from './modules/users/users.module';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { ConfigModule } from '@nestjs/config';
-import appConfig from './config/app.config';
+
 // import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
@@ -17,7 +17,8 @@ import appConfig from './config/app.config';
       },
     ]),
     ConfigModule.forRoot({
-      load: [appConfig],
+      isGlobal: true,
+      envFilePath: ['.env.local', `.env.development`, '.env'],
     }),
     // MongooseModule.forRoot('mongodb://localhost/test'),
     // AuthModule,
