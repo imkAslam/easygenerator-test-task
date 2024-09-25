@@ -8,6 +8,8 @@ import { Connection } from 'mongoose';
 import { LoggerModule } from './shared/logger/logger.module';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { ResponseInterceptor } from './common/interceptors/response.interceptor';
+import { AuthModule } from './modules/auth/auth.module';
+import { UsersModule } from './modules/users/users.module';
 
 @Module({
   imports: [
@@ -48,6 +50,10 @@ import { ResponseInterceptor } from './common/interceptors/response.interceptor'
     }),
 
     LoggerModule.forRoot(),
+
+    // Modules
+    AuthModule,
+    UsersModule,
   ],
 
   controllers: [AppController],
