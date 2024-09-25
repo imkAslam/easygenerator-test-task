@@ -3,7 +3,7 @@ import { AppModule } from './app.module';
 // import * as csurf from 'csurf';
 import { setupSwagger } from './config/swagger.config';
 import { LoggingInterceptor } from './common/interceptors/logging.interceptor';
-import { LoggerService } from './common/logger/logger.service';
+import { LoggerService } from './shared/logger/logger.service';
 import { HttpStatus, Logger, ValidationPipe } from '@nestjs/common';
 
 declare const module: any;
