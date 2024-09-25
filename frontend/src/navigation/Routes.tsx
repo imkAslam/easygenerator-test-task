@@ -13,6 +13,7 @@ import NotFound from "@/pages/NotFound";
 import { useAuth } from "@/context/AuthContext";
 import PrivateLayout from "@/components/layout/PrivateLayout";
 import { PATH } from "@/lib/constants";
+import SignUp from "@/pages/auth/SignUp";
 
 export const PublicRoutes: React.FC = () => {
   const { isAuthenticated } = useAuth();
@@ -42,6 +43,7 @@ const AppRouters = () => {
         {/* Public Routes */}
         <Route path="/" element={<PublicRoutes />}>
           <Route index path={PATH.sign_in} element={<Login />} />
+          <Route index path={PATH.sign_up} element={<SignUp />} />
         </Route>
 
         {/* Protected Routes */}

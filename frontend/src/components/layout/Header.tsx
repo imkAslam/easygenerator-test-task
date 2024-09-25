@@ -38,7 +38,6 @@ const Header: React.FC = () => {
               </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              <DropdownMenuItem>Profile</DropdownMenuItem>
               <DropdownMenuItem>
                 <button className="" type="button" onClick={() => logout()}>
                   Sign out

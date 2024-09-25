@@ -9,14 +9,14 @@ const Login: React.FC = () => {
         <div className="flex justify-center">
           <a href="#">
             <FlowerIcon className="h-10 w-10 text-primary" />
-            <span className="sr-only">Fruit Full AI</span>
+            <span className="sr-only">Test Task</span>
           </a>
         </div>
         <LoginForm />
         <div className="text-center text-sm text-muted-foreground">
           Don't have an account?{" "}
           <a
-            href="#"
+            href="/sign-up"
             className="font-medium underline underline-offset-4 hover:text-primary"
           >
             Sign up

@@ -51,7 +51,6 @@ export default function LoginForm() {
       const res = await userLogin(data);
       toast.success(res.data.message);
       login(res.data.data);
-      console.log(res);
     } catch (error) {
       let errorMessage = "An error occurred";
 
@@ -79,8 +78,6 @@ export default function LoginForm() {
       });
     }
   };
-  // login(data);
-  // You can perform login logic here
 
   const isLoading = form.formState.isSubmitting;
 
@@ -129,7 +126,11 @@ export default function LoginForm() {
                       </a>
                     </div>
                     <FormControl>
-                      <Input placeholder="Password" {...field} />
+                      <Input
+                        type="password"
+                        placeholder="Password"
+                        {...field}
+                      />
                     </FormControl>
                     <FormDescription>
                       This is your secret password.
