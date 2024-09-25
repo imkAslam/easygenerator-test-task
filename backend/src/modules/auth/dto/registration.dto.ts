@@ -45,9 +45,9 @@ export class RegisterUserDto {
     format: 'string',
   })
   @IsString()
-  @MinLength(6, { message: 'password should be at least 6 characters long' })
-  @MaxLength(50, {
-    message: 'password should not be longer than 50 characters',
+  @MinLength(8, { message: 'password should be at least 8 characters long' })
+  @MaxLength(100, {
+    message: 'password should not be longer than 100 characters',
   })
   @Matches(/((?=.*\d)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {
     message:

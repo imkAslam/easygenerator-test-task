@@ -57,19 +57,23 @@ export class AuthService {
 
   async registration(body: RegisterUserDto) {
     const user = await this.usersService.register(body);
-    return user;
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    // const { password, ...rest } = user;
-    // const jwt_token = await this.createAccessToken({
-    //   email: user.email,
-    // });
-    // return {
-    //   status: HttpStatus.OK,
-    //   data: {
-    //     ...rest,
-    //     access_token: jwt_token,
-    //   },
-    // };
+
+    const jwt_token = await this.createAccessToken({
+      id: user.id,
+      email: user.email,
+    });
+    const userResponse: UserResponseDto = {
+      id: user.id,
+      email: user.email,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      fullName: user.fullName,
+      access_token: jwt_token,
+    };
+    return {
+      status: HttpStatus.OK,
+      data: userResponse,
+    };
   }
 
   public async createAccessToken(payload: JwtPayload): Promise<string> {
