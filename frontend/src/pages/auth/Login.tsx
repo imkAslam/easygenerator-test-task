@@ -1,6 +1,6 @@
 import React from "react";
 import { FlowerIcon } from "lucide-react";
-import LoginForm from "@/components/shared-component/sign-in";
+import LoginForm from "@/components/shared-component/SigninForm";
 
 const Login: React.FC = () => {
   return (

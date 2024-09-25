@@ -1,4 +1,4 @@
-import { Bot, LayoutDashboard, MessageSquare } from "lucide-react";
+import { LayoutDashboard } from "lucide-react";
 
 export const PATH = {
   no_page: "*",
@@ -8,8 +8,6 @@ export const PATH = {
   reset_password: "/reset-password",
   profile_page: "/profile",
   dashboard: "/dashboard",
-  assistant: "/assistants",
-  conversations: "/conversations",
 };
 
 export const SIDEBAR_MENU = [
@@ -19,16 +17,8 @@ export const SIDEBAR_MENU = [
     icon: LayoutDashboard,
     color: "text-sky-400",
   },
-  {
-    title: "Assistants",
-    path: PATH.assistant,
-    icon: Bot,
-    color: "text-emerald-700",
-  },
-  {
-    title: "Conversation",
-    icon: MessageSquare,
-    path: PATH.conversations,
-    color: "text-violet-500",
-  },
 ];
+
+export const BASE_URL = "http://localhost:3001/api";
+export const passwordRegex =
+  /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;

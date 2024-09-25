@@ -2,7 +2,7 @@ import React from "react";
 import { cn } from "@/lib/utils";
 
 import { Link, useLocation } from "react-router-dom";
-import { SIDEBAR_MENU } from "@/config/constants";
+import { SIDEBAR_MENU } from "@/lib/constants";
 
 const SideBar: React.FC = () => {
   const location = useLocation();
@@ -11,7 +11,7 @@ const SideBar: React.FC = () => {
     <aside className="space-y-4 py-4 flex flex-col h-full bg-[#111827] text-white">
       <div className="grid place-content-center">
         <Link to="/dashboard" className="border-gray-100  text-white ">
-          <h1 className="text-xl font-bold">Fruit Punch AI</h1>
+          <h1 className="text-xl font-bold">geneasy test</h1>
         </Link>
       </div>
       <div className="px-3 py-2 flex-1">

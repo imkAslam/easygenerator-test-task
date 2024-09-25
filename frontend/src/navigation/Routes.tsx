@@ -5,23 +5,34 @@ import {
   Route,
   Navigate,
   Outlet,
+  useLocation,
 } from "react-router-dom";
-import { PATH } from "@/config/constants";
 import Login from "@/pages/auth/Login";
 import Dashboard from "@/pages/private/Dashboard";
-import Assistants from "@/pages/private/Assistants";
 import NotFound from "@/pages/NotFound";
 import { useAuth } from "@/context/AuthContext";
 import PrivateLayout from "@/components/layout/PrivateLayout";
+import { PATH } from "@/lib/constants";
 
 export const PublicRoutes: React.FC = () => {
   const { isAuthenticated } = useAuth();
-  return !isAuthenticated ? <Outlet /> : <Navigate to="/dashboard" replace />;
+  const location = useLocation();
+
+  return !isAuthenticated ? (
+    <Outlet />
+  ) : (
+    <Navigate to={location.state?.from || PATH.dashboard} replace />
+  );
 };
 
 export const PrivateRoutes: React.FC = () => {
   const { isAuthenticated } = useAuth();
-  return isAuthenticated ? <PrivateLayout /> : <Navigate to="/" replace />;
+  const location = useLocation();
+  return isAuthenticated ? (
+    <PrivateLayout />
+  ) : (
+    <Navigate to={PATH.sign_in} state={{ from: location.pathname }} replace />
+  );
 };
 
 const AppRouters = () => {
@@ -36,7 +47,6 @@ const AppRouters = () => {
         {/* Protected Routes */}
         <Route element={<PrivateRoutes />}>
           <Route path={PATH.dashboard} element={<Dashboard />} />
-          <Route path={PATH.assistant} element={<Assistants />} />
         </Route>
 
         {/* Catch-all Route */}

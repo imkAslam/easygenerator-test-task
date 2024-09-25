@@ -1,3 +1,4 @@
+import { IUserResponse } from "@/interface/user.interface";
 import React, {
   createContext,
   useState,
@@ -10,8 +11,8 @@ type Props = { children: ReactNode };
 
 type AuthContextType = {
   isAuthenticated: boolean;
-  user: null | object;
-  login: (userData: object) => void;
+  user: null | IUserResponse;
+  login: (userData: IUserResponse) => void;
   logout: () => void;
 };
 
@@ -26,7 +27,7 @@ export const useAuth = (): AuthContextType => {
 };
 
 export const AuthProvider: React.FC<Props> = ({ children }) => {
-  const [user, setUser] = useState<null | object>(null);
+  const [user, setUser] = useState<null | IUserResponse>(null);
 
   useEffect(() => {
     const storedUser = localStorage.getItem("auth");
@@ -35,7 +36,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
     }
   }, []);
 
-  const login = (userData: object) => {
+  const login = (userData: IUserResponse) => {
     setUser(userData);
     localStorage.setItem("auth", JSON.stringify(userData));
   };

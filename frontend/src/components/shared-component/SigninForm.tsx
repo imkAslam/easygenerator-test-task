@@ -22,10 +22,20 @@ import {
 } from "@/components/ui/form";
 import { toast } from "sonner";
 import { useAuth } from "@/context/AuthContext";
+import { userLogin } from "@/lib/auth-apis";
+import { Loader2 } from "lucide-react";
+import { passwordRegex } from "@/lib/constants";
+import axios from "axios";
 
 const loginSchema = z.object({
   email: z.string().min(1, "Email is required").email("Invalid email address"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
+  password: z
+    .string()
+    .min(6, "Password must be at least 6 characters")
+    .regex(
+      passwordRegex,
+      "Password must contain at least 1 letter, 1 number, and 1 special character"
+    ),
 });
 
 type LoginFormInputs = z.infer<typeof loginSchema>;
@@ -36,14 +46,43 @@ export default function LoginForm() {
     resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit = (data: LoginFormInputs) => {
-    console.log(data);
-    toast.success("Form Event has been created", {
-      description: JSON.stringify(data, null, 4),
-    });
-    login(data);
-    // You can perform login logic here
+  const onSubmit = async (data: LoginFormInputs) => {
+    try {
+      const res = await userLogin(data);
+      toast.success(res.data.message);
+      login(res.data.data);
+      console.log(res);
+    } catch (error) {
+      let errorMessage = "An error occurred";
+
+      if (axios.isAxiosError(error)) {
+        // If there is a response, use the status and data
+        if (error.response) {
+          errorMessage =
+            error.response.data?.message || "An error occurred during login.";
+          console.error("Response Error:", error.response.data);
+        } else if (error.request) {
+          // No response received
+          errorMessage = "No response received from the server.";
+          console.error("Request Error:", error.request);
+        } else {
+          // Other errors
+          errorMessage = error.message;
+        }
+      } else {
+        console.error("Generic Error:", error);
+      }
+
+      // Display error message in toast
+      toast.error("⚠️ Something went wrong!", {
+        description: errorMessage,
+      });
+    }
   };
+  // login(data);
+  // You can perform login logic here
+
+  const isLoading = form.formState.isSubmitting;
 
   return (
     <Card>
@@ -102,8 +141,14 @@ export default function LoginForm() {
             </div>
           </CardContent>
           <CardFooter>
-            <Button type="submit" className="w-full">
-              Sign In
+            <Button className="w-full" type="submit">
+              {isLoading ? (
+                <Loader2 className="animate-spin" />
+              ) : (
+                <span className="flex justify-center items-center">
+                  Sign In
+                </span>
+              )}
             </Button>
           </CardFooter>
         </form>
